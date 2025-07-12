@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const WordleGrid = () => {
+const WordleGrid = ({ roomId, user, onWin }) => {
   const numRows = 6;
   const numCols = 5;
   const finalword = "LIKES";
@@ -13,13 +13,21 @@ const WordleGrid = () => {
     Array.from({ length: numRows }, () => Array(numCols).fill(""))
   );
 
+  const [disabled, setDisabled] = useState(false);
+  const [winner, setWinner] = useState(null);
+
   const inputRefs = useRef([]);
 
   useEffect(() => {
     inputRefs.current = inputRefs.current.slice(0, numRows * numCols);
   }, []);
 
+  useEffect(() => {
+    setDisabled(!!winner);
+  }, [winner]);
+
   const handleChange = (row, col, value) => {
+    if (disabled) return;
     if (value.length > 1) return;
 
     const newGrid = [...grid];
@@ -42,23 +50,21 @@ const WordleGrid = () => {
             const newColorRow = Array(numCols).fill("gray");
             const finalWordArr = finalword.split("");
 
-            // Check green first
             const matched = Array(numCols).fill(false);
             for (let i = 0; i < numCols; i++) {
               if (newGrid[row][i] === finalword[i]) {
                 newColorRow[i] = "green";
                 matched[i] = true;
-                finalWordArr[i] = null; // Mark as used
+                finalWordArr[i] = null;
               }
             }
 
-            // Check yellow
             for (let i = 0; i < numCols; i++) {
               if (newColorRow[i] !== "green") {
                 const letterIndex = finalWordArr.indexOf(newGrid[row][i]);
                 if (letterIndex !== -1) {
                   newColorRow[i] = "yellow";
-                  finalWordArr[letterIndex] = null; // Mark as used
+                  finalWordArr[letterIndex] = null;
                 }
               }
             }
@@ -66,6 +72,12 @@ const WordleGrid = () => {
             const newColorGrid = [...colorGrid];
             newColorGrid[row] = newColorRow;
             setColorGrid(newColorGrid);
+
+            if (newColorRow.every(c => c === 'green')) {
+              setDisabled(true);
+              setWinner(user?.email || 'A player');
+              if (onWin && !winner) onWin();
+            }
 
             alert(`✅ "${word}" is a valid word!`);
           } else {
@@ -102,23 +114,27 @@ const WordleGrid = () => {
 
   return (
     <div className="grid-container">
+      {winner && (
+        <div style={{marginTop: 24, fontWeight: 700, fontSize: 20, color: '#d32f2f'}}>
+          {winner} won the game!
+        </div>
+      )}
       {grid.map((rowArr, rowIndex) => (
         <div className="grid-row" key={rowIndex}>
           {rowArr.map((cell, colIndex) => {
             const inputIndex = rowIndex * numCols + colIndex;
             const bgColor = colorGrid[rowIndex][colIndex];
-//
             return (
               <input
                 key={inputIndex}
                 ref={(el) => (inputRefs.current[inputIndex] = el)}
                 className={`grid-cell${bgColor ? ` cell-${bgColor}` : ""}${bgColor === "green" ? " cell-green-animate" : ""}`}
-
                 type="text"
                 maxLength="1"
                 value={grid[rowIndex][colIndex]}
                 onChange={(e) => handleChange(rowIndex, colIndex, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}
+                disabled={disabled}
               />
             );
           })}
