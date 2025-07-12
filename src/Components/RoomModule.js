@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
-// import WordleGrid from '..Components/WordleGrid';
 import WordleGrid from './WorldeGrid';
 
 function RoomModule({ user }) {
@@ -15,6 +14,22 @@ function RoomModule({ user }) {
   const [canRestart, setCanRestart] = useState(false);
   const [shouldLeave, setShouldLeave] = useState(false);
   const [restartCountdown, setRestartCountdown] = useState(10);
+
+  useEffect(() => {
+    const savedRoomId = localStorage.getItem('activeRoomId');
+    if (savedRoomId && !joined) {
+      setRoomId(savedRoomId);
+      setJoined(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (joined && roomId) {
+      localStorage.setItem('activeRoomId', roomId);
+    } else {
+      localStorage.removeItem('activeRoomId');
+    }
+  }, [joined, roomId]);
 
   useEffect(() => {
     if (!roomId) return;
@@ -67,6 +82,7 @@ function RoomModule({ user }) {
       setStarted(false);
       setCreator(null);
       setCanRestart(false);
+      localStorage.removeItem('activeRoomId');
     }
   }, [shouldLeave]);
 
@@ -107,6 +123,33 @@ function RoomModule({ user }) {
     setJoined(true);
     setCreator(room.creator);
     await supabase.from('room_users').insert({ room_id: inputRoomId, user_id: user.id, username: user.email });
+  };
+
+  const leaveRoom = async () => {
+    await supabase.from('room_users').delete().eq('room_id', roomId).eq('user_id', user.id);
+    setRoomId('');
+    setJoined(false);
+    setUsers([]);
+    setWinner(null);
+    setStarted(false);
+    setCreator(null);
+    setCanRestart(false);
+    setShouldLeave(false);
+    localStorage.removeItem('activeRoomId');
+  };
+
+  const deleteRoom = async () => {
+    await supabase.from('rooms').delete().eq('id', roomId);
+    await supabase.from('room_users').delete().eq('room_id', roomId);
+    setRoomId('');
+    setJoined(false);
+    setUsers([]);
+    setWinner(null);
+    setStarted(false);
+    setCreator(null);
+    setCanRestart(false);
+    setShouldLeave(false);
+    localStorage.removeItem('activeRoomId');
   };
 
   const startGame = async () => {
@@ -164,14 +207,39 @@ function RoomModule({ user }) {
               {users.map(u => <li key={u.user_id}>{u.username}</li>)}
             </ul>
           </div>
+          {user.id === creator && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', margin: '16px 0' }}>
+              <button onClick={deleteRoom} style={{ background: 'linear-gradient(90deg, #ef4444 0%, #b91c1c 100%)', color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '12px 28px', fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(239,68,68,0.08)' }}>
+                Delete Room
+              </button>
+              {!started && !winner && (
+                <button onClick={startGame} style={{ marginTop: 16, padding: '8px 18px', fontWeight: 600 }}>Start Game</button>
+              )}
+              {winner && (
+                !canRestart ? (
+                  <div style={{ marginTop: 8, color: '#888', fontWeight: 600 }}>You can restart in {restartCountdown} seconds...</div>
+                ) : (
+                  <button onClick={restartGame} style={{ background: 'linear-gradient(90deg, #10b981 0%, #22d3ee 100%)', color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '12px 28px', fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(16,185,129,0.08)' }}>
+                    Restart Game
+                  </button>
+                )
+              )}
+            </div>
+          )}
+          {user.id !== creator && (
+            <button onClick={leaveRoom} style={{ marginTop: 16, padding: '8px 18px', fontWeight: 600, background: '#d32f2f', color: '#fff', border: 'none', borderRadius: 6 }}>Leave Room</button>
+          )}
           {winner ? (
             <>
               <div style={{ color: '#388e3c', fontWeight: 700, fontSize: 18 }}>{winner} won! Room can be restarted soon.</div>
-              {user.id === creator && !canRestart && (
-                <div style={{ marginTop: 8, color: '#888', fontWeight: 600 }}>You can restart in {restartCountdown} seconds...</div>
-              )}
-              {user.id === creator && canRestart && (
-                <button onClick={restartGame} style={{ marginTop: 16, padding: '8px 18px', fontWeight: 600 }}>Restart Game</button>
+              {user.id === creator && (
+                !canRestart ? (
+                  <div style={{ marginTop: 8, color: '#888', fontWeight: 600 }}>You can restart in {restartCountdown} seconds...</div>
+                ) : (
+                  <button onClick={restartGame} style={{ background: 'linear-gradient(90deg, #10b981 0%, #22d3ee 100%)', color: '#fff', fontWeight: 700, border: 'none', borderRadius: 8, padding: '12px 28px', fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(16,185,129,0.08)' }}>
+                    Restart Game
+                  </button>
+                )
               )}
             </>
           ) : started ? (
