@@ -38,9 +38,34 @@
 }
 
 .cell-green {
-  background: #0ae650;
+  position: relative;
+  background-color: rgb(255, 255, 255);
   color: white;
+  border: 2px solid green;
+  overflow: hidden;
+  animation: nila 2s ease-in forwards;
 }
+.cell-green::before {
+  content: '';
+  top:0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 50;
+  background-color: aqua;
+}
+@keyframes nila {
+  0%{
+    transform: translateX(-500px);
+    background-color: rgb(255, 255, 255);
+  }
+  100%{
+    transform: translateX(0px);
+    background-color: green;
+  }
+}
+
 .cell-yellow {
   background: #c9b458;
   color: white;
