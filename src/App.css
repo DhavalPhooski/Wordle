@@ -49,3 +49,89 @@
   background: #787c7e;
   color: white;
 }
+
+/* Login form styles */
+.login-container {
+  max-width: 350px;
+  margin: 60px auto;
+  padding: 32px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-container h2 {
+  margin-bottom: 18px;
+  font-size: 1.7rem;
+  color: #333;
+}
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.login-form input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.login-form input:focus {
+  border: 1.5px solid #6aaa64;
+}
+.login-form button {
+  padding: 10px 0;
+  background: #6aaa64;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.login-form button:hover {
+  background: #51934e;
+}
+.google-btn {
+  width: 100%;
+  padding: 10px 0;
+  background: #4285f4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+.google-btn:hover {
+  background: #3367d6;
+}
+.login-toggle {
+  margin-top: 8px;
+  font-size: 0.97rem;
+  color: #444;
+}
+.login-toggle button {
+  background: none;
+  border: none;
+  color: #6aaa64;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 2px;
+}
+.login-error {
+  color: #d32f2f;
+  margin-bottom: 10px;
+  font-size: 0.98rem;
+  text-align: center;
+}
