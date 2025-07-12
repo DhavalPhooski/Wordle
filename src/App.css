@@ -39,39 +39,21 @@
 
 .cell-green {
   position: relative;
-  background-color: rgb(255, 255, 255);
+   background:linear-gradient(135deg,#000000,rgb(39, 93, 255));
+  
   color: white;
-  border: 2px solid green;
+  border: 2px solid rgb(6, 124, 6);
   overflow: hidden;
   animation: nila 2s ease-in forwards;
 }
-.cell-green::before {
-  content: '';
-  top:0;
-  left:0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 50;
-  background-color: aqua;
-}
-@keyframes nila {
-  0%{
-    transform: translateX(-500px);
-    background-color: rgb(255, 255, 255);
-  }
-  100%{
-    transform: translateX(0px);
-    background-color: green;
-  }
-}
+
 
 .cell-yellow {
-  background: #c9b458;
+   background:linear-gradient(135deg,#2a2a2a,rgba(4, 255, 4, 0.856));
   color: white;
 }
 .cell-gray {
-  background: #787c7e;
+  background:linear-gradient(135deg,#2a2a2a,rgba(133, 133, 133, 0.856));
   color: white;
 }
 
