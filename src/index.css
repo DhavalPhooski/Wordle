@@ -9,6 +9,7 @@ body{
 }
 /* Grid design */
 .grid-container {
+  
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -38,3 +39,6 @@ body{
  border: 2px solid #cad395;
 }
 
+.dontHaveAccount{
+  color:white;
+}

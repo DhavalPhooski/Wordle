@@ -36,20 +36,21 @@ function Login() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)' }}>
+    <div style={{ minHeight: '10vh', minWidth: '500px',display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #6f6f6fff 0%, #282828ff 100%)' }}>
       <div style={{
-        maxWidth: 370,
+        maxWidth: 500,
         width: '100%',
-        background: '#fff',
+        background: 'linear-gradient(135deg, #6f6f6fff 0%, #282828ff 100%)',
         borderRadius: 18,
         boxShadow: '0 4px 32px rgba(80, 80, 160, 0.10)',
         padding: '40px 32px 32px 32px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 18
+        gap: 18,
+        border:'2px solid grey'
       }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#3730a3', marginBottom: 8, letterSpacing: 1 }}>{isRegister ? 'Register' : 'Login'}</h2>
+        <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#ffffffff', marginBottom: 8, letterSpacing: 1 }}>{isRegister ? 'Register' : 'Login'}</h2>
         <form onSubmit={handleEmailAuth} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 10 }}>
           <input
             type="email"
@@ -59,11 +60,11 @@ function Login() {
             required
             style={{
               padding: '12px 14px',
-              border: '1.5px solid #e0e7ff',
+              border: '2.5px solid #e0e7ff',
               borderRadius: 8,
               fontSize: '1rem',
               outline: 'none',
-              background: '#f1f5f9',
+             background: 'linear-gradient(135deg,black,black,grey)',
               color: '#222',
               transition: 'border 0.2s',
             }}
@@ -76,11 +77,11 @@ function Login() {
             required
             style={{
               padding: '12px 14px',
-              border: '1.5px solid #e0e7ff',
+              border: '2.5px solid #e0e7ff',
               borderRadius: 8,
               fontSize: '1rem',
               outline: 'none',
-              background: '#f1f5f9',
+              background: 'linear-gradient(135deg,black,black,grey)',
               color: '#222',
               transition: 'border 0.2s',
             }}
@@ -118,7 +119,7 @@ function Login() {
         }}>
           Login with Google
         </button>
-        <div style={{ marginTop: 8, fontSize: '1rem', color: '#444', fontWeight: 500 }}>
+        <div style={{ marginTop: 8, fontSize: '1rem', color: 'white', fontWeight: 500 }}>
           {isRegister ? (
             <span>
               Already have an account?{' '}

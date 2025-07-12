@@ -184,7 +184,7 @@ function RoomModule({ user }) {
   }
 
   return (
-    <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, background: '#fff', borderRadius: 10, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+    <div style={{ maxWidth: 400, margin: '40px auto', padding: 24, background: '#2a2a2a', borderRadius: 10, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' ,  border:'5px solid grey'}}>
       {error && <div style={{ color: '#d32f2f', marginBottom: 12 }}>{error}</div>}
       {!joined ? (
         <>
@@ -245,7 +245,7 @@ function RoomModule({ user }) {
           ) : started ? (
             <WordleGrid roomId={roomId} user={user} onWin={onWin} />
           ) : user.id === creator ? (
-            <button onClick={startGame} style={{ marginTop: 16, padding: '8px 18px', fontWeight: 600 }}>Start Game</button>
+            <button onClick={startGame} style={{ marginTop: 16, padding: '8px 18px', fontWeight: 600, display:'none' }}>Start Game</button>
           ) : (
             <div style={{ marginTop: 16, color: '#888', fontWeight: 600 }}>Waiting for the creator to start the game...</div>
           )}

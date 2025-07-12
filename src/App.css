@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  background: linear-gradient(135deg, #424242 0%, #282828 100%);
   min-height: 100vh;
   font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
 }
@@ -14,10 +14,11 @@ body {
 }
 
 .grid-container {
-  background: #fff;
+
+  background: #6e6e6e;
   border-radius: 18px;
   box-shadow: 0 4px 32px rgba(80, 80, 160, 0.10);
-  padding: 32px 24px 24px 24px;
+  padding: 12px 24px 24px 24px;
   margin: 32px auto 0 auto;
   max-width: 420px;
   min-width: 320px;
@@ -28,30 +29,31 @@ body {
   justify-content: center;
   margin-bottom: 8px;
 }
-
+li{
+  color:white;
+}
 .grid-cell {
   width: 48px;
   height: 48px;
   margin: 0 4px;
   font-size: 2rem;
   text-align: center;
-  border: 2px solid #e0e7ff;
+  border: 2px solid #505050;
   border-radius: 8px;
-  background: #f1f5f9;
-  transition: border 0.2s, background 0.2s;
+  background:linear-gradient(135deg,#323232,rgb(33, 33, 33));
   box-shadow: 0 2px 8px rgba(80, 80, 160, 0.04);
 }
 .grid-cell:focus {
   border: 2px solid #6366f1;
-  background: #e0e7ff;
+  background: #898989;
 }
 
 .cell-green {
-  background: #0ae650 !important;
+  background: linear-gradient(135deg,#2a2a2a,rgb(0, 255, 0)) !important;
   color: white !important;
 }
 .cell-yellow {
-  background: #c9b458 !important;
+  background: linear-gradient(135deg,#2a2a2a,rgb(30, 0, 255)) !important;
   color: white !important;
 }
 .cell-gray {

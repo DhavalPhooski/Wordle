@@ -79,7 +79,7 @@ const WordleGrid = ({ roomId, user, onWin }) => {
               if (onWin && !winner) onWin();
             }
 
-            alert(`✅ "${word}" is a valid word!`);
+            console.log(`✅ "${word}" is a valid word!`);
           } else {
             alert(`❌ "${word}" is not a valid word.`);
           }
