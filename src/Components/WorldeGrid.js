@@ -107,7 +107,7 @@ const WordleGrid = () => {
           {rowArr.map((cell, colIndex) => {
             const inputIndex = rowIndex * numCols + colIndex;
             const bgColor = colorGrid[rowIndex][colIndex];
-
+//
             return (
               <input
                 key={inputIndex}
