@@ -4,6 +4,7 @@ import WordleGrid from './Components/WorldeGrid';
 import { useEffect, useState } from 'react';
 import { supabase } from './supabaseClient';
 import Login from './Components/Login';
+import RoomModule from './Components/RoomModule';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -32,7 +33,7 @@ function App() {
           >
             Logout
           </button>
-          <WordleGrid />
+          <RoomModule user={session.user} />
         </>
       ) : (
         <Login />
