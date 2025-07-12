@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.cell-green {
+  background: #0ae650;
+  color: white;
+}
+.cell-yellow {
+  background: #c9b458;
+  color: white;
+}
+.cell-gray {
+  background: #787c7e;
+  color: white;
+}

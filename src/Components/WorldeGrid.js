@@ -112,20 +112,9 @@ const WordleGrid = () => {
               <input
                 key={inputIndex}
                 ref={(el) => (inputRefs.current[inputIndex] = el)}
-                className="grid-cell"
+                className={`grid-cell${bgColor ? ` cell-${bgColor}` : ""}`}
                 type="text"
                 maxLength="1"
-                style={{
-                  backgroundColor:
-                    bgColor === "green"
-                      ? "#6aaa64"
-                      : bgColor === "yellow"
-                      ? "#c9b458"
-                      : bgColor === "gray"
-                      ? "#787c7e"
-                      : "white",
-                  color: bgColor ? "white" : "black",
-                }}
                 value={grid[rowIndex][colIndex]}
                 onChange={(e) => handleChange(rowIndex, colIndex, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(e, rowIndex, colIndex)}
